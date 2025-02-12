@@ -348,3 +348,5 @@ MigrationBackup/
 /Tests/Learning.Api.Tests.Docker/obj/Debug/net8.0/Learning.Api.Tests.Docker.AssemblyInfoInputs.cache
 /.vs/Learning/v17/.suo
 /.vs/Learning/v17/DocumentLayout.json
+/.vs/DockerLearning.Api/FileContentIndex/*.vsidx
+/.vs

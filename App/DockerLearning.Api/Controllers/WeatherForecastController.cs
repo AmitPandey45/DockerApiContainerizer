@@ -13,17 +13,21 @@ namespace DockerLearning.Api.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IConfiguration config;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IConfiguration config)
         {
             _logger = logger;
+            this.config = config;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
-            var appKey1 = AppSettingsHelper.GetValue("AppConfig1");
-            var appKey2 = AppSettingsHelper.GetValue("AppConfig2");
+            var appKey1 = config["AppConfig1"];
+            var appKey2 = config["AppConfig2"];
+            var customKey1 = config["MY_CUSTOM_ENV1"];
+            var customKey2 = config["MY_CUSTOM_ENV2"];
 
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
@@ -32,6 +36,8 @@ namespace DockerLearning.Api.Controllers
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)],
                 AppKey1 = appKey1,
                 AppKey2 = appKey2,
+                CustomAppKey1 = customKey1,
+                CustomAppKey2 = customKey2,
             })
             .ToArray();
         }

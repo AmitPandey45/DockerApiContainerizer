@@ -61,7 +61,14 @@ If you're running your application in a Docker container, you can pass environme
 
 docker run -e ASPNETCORE_ENVIRONMENT=Production -e MY_CUSTOM_ENV_VARIABLE=MyValue myapp:latest
 
-docker run --name DockerLearningApi -d -p 8081:8080 -e ASPNETCORE_ENVIRONMENT=PROD -e MY_CUSTOM_ENV1=PROD -e MY_CUSTOM_ENV2=PRODConfigData1 dockerlearning:1.0.0
+
+docker run --name DockerLearningApi1 -d -p 8081:8080 -e ASPNETCORE_ENVIRONMENT=dev -e MY_CUSTOM_ENV1=KeyEnv1ValueDev -e MY_CUSTOM_ENV2=KeyEnv2ValueDev dockerlearning:1.0.0
+
+docker run --name DockerLearningApi2 -d -p 8082:8080 -e ASPNETCORE_ENVIRONMENT=qa -e MY_CUSTOM_ENV1=KeyEnv1ValueQA -e MY_CUSTOM_ENV2=KeyEnv2ValueQA dockerlearning:1.0.0
+
+docker run --name DockerLearningApi3 -d -p 8083:8080 -e ASPNETCORE_ENVIRONMENT=stage -e MY_CUSTOM_ENV1=KeyEnv1ValueStage -e MY_CUSTOM_ENV2=KeyEnv2ValueStage dockerlearning:1.0.0
+
+docker run --name DockerLearningApi4 -d -p 8084:8080 -e ASPNETCORE_ENVIRONMENT=prod -e MY_CUSTOM_ENV1=KeyEnv1ValueProd -e MY_CUSTOM_ENV2=KeyEnv2ValueProd dockerlearning:1.0.0
 
 
 

@@ -13,5 +13,9 @@ namespace DockerLearning.Api
         public string? AppKey1 { get; set; }
 
         public string? AppKey2 { get; set; }
+
+        public string? CustomAppKey1 { get; set; }
+
+        public string? CustomAppKey2 { get; set; }
     }
 }
