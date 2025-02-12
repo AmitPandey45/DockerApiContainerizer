@@ -1,0 +1,81 @@
+# Step 1: Use the .NET SDK image for SonarQube analysis and build process
+FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS base
+USER root
+
+# Install necessary dependencies for Sonar analysis (bash, curl)
+RUN apk update && apk add --no-cache bash curl
+
+# Step 2: Conditionally install Java and tools only for dev/qa environment
+ARG build_env_name='dev'
+RUN if [ "$build_env_name" == "dev" ] || [ "$build_env_name" == "qa" ]; then \
+    # Install OpenJDK 17 for SonarQube analysis
+    apk add --no-cache openjdk17; \
+    # Install Sonar scanner for .NET globally
+    dotnet tool install --global dotnet-sonarscanner; \
+    # Install dotnet-coverage globally for code coverage collection
+    dotnet tool install --global dotnet-coverage; \
+    # Verify Java installation (optional but useful for debugging)
+    java -version; \
+fi
+
+# Step 3: Set the working directory for the project
+WORKDIR /src
+
+# Step 4: Copy the necessary files for Sonar analysis and build
+COPY . .
+
+# Step 5: Run SonarQube analysis if the environment is 'dev' or 'qa'
+ARG sonar_branch='develop'
+ARG sonar_token='sqp_367336aef811d1b1e0a371758e987ee444589db3'
+ARG sonar_qualitygate=false
+
+RUN if [ "$build_env_name" == "dev" ] || [ "$build_env_name" == "qa" ]; then \
+    dotnet sonarscanner begin \
+        /k:"dockerlearningservicelxpoc" \
+        /d:sonar.host.url="https://sonarcloud.io" \
+        /o:"myorg" \
+        /d:sonar.token="$sonar_token" \
+        /d:sonar.branch.name="$sonar_branch" \
+        /d:sonar.qualitygate.wait=$sonar_qualitygate \
+        /d:sonar.cs.vscoveragexml.reportsPaths="App/dockerlearning.Api/report_coverage.xml" \
+        /d:sonar.exclusions="**/*.pem,**/*.sql,**/kube--deploy*.yaml,**/AssemblyInfo.cs,App/dockerlearning.Api/Properties/**,App/dockerlearning.Api/logs/**" \
+        /d:sonar.coverage.exclusions="**/ServiceMapperProfile.cs,**/kube-deploy*.yaml,**/*.config,**/Dockerfile,**/*.ps1,**/Tests/**,**/dockerlearning.Api/App_Start/**,**/Common/**,**/Core/**"; \
+    dotnet build "MY.dockerlearning.sln" --no-incremental; \
+    # Collect code coverage for SonarQube analysis
+    dotnet-coverage collect 'dotnet test MY.dockerlearning.sln' -f xml -o 'App/dockerlearning.Api/report_coverage.xml'; \
+    dotnet sonarscanner end /d:sonar.token="$sonar_token"; \
+fi
+
+# Step 6: Restore dependencies
+RUN dotnet restore "/src/App/dockerlearning.Api/dockerlearning.Api.csproj"
+
+# Step 7: Build the application
+RUN dotnet build "/src/App/dockerlearning.Api/dockerlearning.Api.csproj" -c Release -o /src/build
+
+# Step 8: Publish the application
+RUN dotnet publish "/src/App/dockerlearning.Api/dockerlearning.Api.csproj" -c Release -o /src/publish /p:UseAppHost=false
+
+# Step 9: Create final image for production
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS final
+
+# Install ICU libraries to support globalization
+USER root
+RUN apk update && apk add icu-libs
+
+# Switch back to non-root user
+USER $APP_UID
+
+# Set the environment variable to disable invariant globalization mode
+ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
+
+# Set the working directory for the final image
+WORKDIR /inetpub/wwwroot
+
+# Step 10: Copy the published app from the publish stage
+COPY --from=publish /src/publish .
+
+# Step 11: Final stage check - ensure the application is copied correctly
+RUN echo "Listing files in /inetpub/wwwroot during final stage" && ls -al /inetpub/wwwroot/
+
+# Step 12: Set the entry point to run the application
+ENTRYPOINT ["dotnet", "dockerlearning.Api.dll"]

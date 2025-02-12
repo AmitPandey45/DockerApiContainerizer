@@ -1,0 +1,47 @@
+# Step 1: Use Amazon Linux 2023 as the base image for running the application
+FROM amazonlinux:2023 AS base
+
+# Install .NET 8 runtime for running the application
+RUN yum update -y && \
+    yum install -y aspnetcore-runtime-8.0
+
+# Expose ports as needed
+EXPOSE 8080 8081 5000 7223 8085 5001
+
+# Step 2: Create a build image with .NET 8 SDK (for building the application)
+FROM amazonlinux:2023 AS build
+
+# Install .NET SDK to build the application
+RUN yum update -y && \
+    yum install -y dotnet-sdk-8.0
+
+# Set working directory for the build stage
+WORKDIR /src
+
+# Step 3: Copy the whole directory into the build image
+COPY . .
+
+# Step 4: Restore dependencies
+RUN dotnet restore "/src/App/dockerlearning.Api/dockerlearning.Api.csproj"
+
+# Step 5: Build the application
+RUN dotnet build "/src/App/dockerlearning.Api/dockerlearning.Api.csproj" -c Release -o /src/build
+
+# Step 6: Publish the application
+FROM build AS publish
+RUN dotnet publish "/src/App/dockerlearning.Api/dockerlearning.Api.csproj" -c Release -o /src/publish /p:UseAppHost=false
+
+# Step 7: Production stage (final image)
+FROM base AS final
+
+# Set the working directory for the final image
+WORKDIR /inetpub/wwwroot
+
+# Step 8: Copy the published app from the publish stage
+COPY --from=publish /src/publish .
+
+# Final stage check - ensure the application is copied correctly
+RUN echo "Listing files in /inetpub/wwwroot during final stage" && ls -al /inetpub/wwwroot/
+
+# Step 9: Set the entry point to run the application
+ENTRYPOINT ["dotnet", "dockerlearning.Api.dll"]

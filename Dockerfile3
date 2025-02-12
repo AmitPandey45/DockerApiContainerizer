@@ -1,0 +1,49 @@
+# Step 1: Use a base image for running the application
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+EXPOSE 8080 8081 5000 7223 8085 5001
+
+# Step 2: Create a build image
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG BUILD_CONFIGURATION=Release
+ARG build_env_name='dev'  # Default environment is dev, can be overridden during build
+WORKDIR /src
+
+# Step 3: Copy the whole directory into the build image
+COPY . .
+
+# Step 4: Restore dependencies
+RUN dotnet restore "/src/App/dockerlearning.Api/dockerlearning.Api.csproj"
+
+# Step 5: Run SonarQube analysis if the environment is 'dev' or 'qa'
+RUN if [ "$build_env_name" == "dev" ] || [ "$build_env_name" == "qa" ]; then \
+    dotnet sonarscanner begin \
+        /k:"dockerlearningservicelxpoc" \
+        /d:sonar.host.url="https://sonarcloud.io" \
+        /o:"myorg" \
+        /d:sonar.token="$sonar_token" \
+        /d:sonar.branch.name="$sonar_branch" \
+        /d:sonar.qualitygate.wait=$sonar_qualitygate \
+        /d:sonar.cs.vscoveragexml.reportsPaths="App/dockerlearning.Api/report_coverage.xml" \
+        /d:sonar.exclusions="**/*.pem,**/*.sql,**/kube--deploy*.yaml,**/AssemblyInfo.cs,App/dockerlearning.Api/Properties/**,App/dockerlearning.Api/logs/**" \
+        /d:sonar.coverage.exclusions="**/ServiceMapperProfile.cs,**/kube-deploy*.yaml,**/*.config,**/Dockerfile,**/*.ps1,**/Tests/**,**/dockerlearning.Api/App_Start/**,**/Common/**,**/Core/**"; \
+    dotnet build "MY.dockerlearning.sln" --no-incremental; \
+    # Collect code coverage for SonarQube analysis
+    dotnet-coverage collect 'dotnet test MY.dockerlearning.sln' -f xml -o 'App/dockerlearning.Api/report_coverage.xml'; \
+    dotnet sonarscanner end /d:sonar.token="$sonar_token"; \
+fi
+
+# Step 6: Publish the application (this is what the final image will use)
+RUN dotnet publish "/src/App/dockerlearning.Api/dockerlearning.Api.csproj" -c $BUILD_CONFIGURATION -o /src/publish /p:UseAppHost=false
+
+# Step 7: Production stage (final image)
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+WORKDIR /inetpub/wwwroot
+
+# Step 8: Copy the published app from the build stage
+COPY --from=build /src/publish .
+
+# Final stage check - ensure the application is copied correctly
+RUN echo "Listing files in /inetpub/wwwroot during final stage" && ls -al /inetpub/wwwroot/
+
+# Step 9: Set the entry point to run the application
+ENTRYPOINT ["dotnet", "dockerlearning.Api.dll"]

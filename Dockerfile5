@@ -1,0 +1,71 @@
+# Step 1: Use Amazon Linux 2023 as the base image
+FROM amazonlinux:2023.6.20250115.0 AS base
+
+# Install necessary dependencies for building and running .NET apps
+RUN yum update -y && \
+    yum install -y \
+    wget \
+    ca-certificates \
+    openssl-devel \
+    libcurl-devel \
+    libicu-devel \
+    tar \
+    gzip \
+    && yum clean all
+
+# Install qemu-user-static for ARM64 emulation and necessary libraries
+RUN yum install -y \
+    qemu-user-static \
+    glibc-langpack-en \
+    glibc-common \
+    glibc-devel \
+    && yum clean all
+
+# Step 2: Install .NET SDK from local .tar.gz file
+COPY dotnet-sdk.tar.gz /tmp/dotnet-sdk.tar.gz
+
+RUN mkdir -p /usr/share/dotnet && \
+    tar -xvzf /tmp/dotnet-sdk.tar.gz -C /usr/share/dotnet && \
+    rm /tmp/dotnet-sdk.tar.gz
+
+# Set environment variables for .NET SDK
+ENV DOTNET_ROOT=/usr/share/dotnet
+ENV PATH=$PATH:/usr/share/dotnet
+
+# Step 3: Verify the .NET SDK installation
+RUN dotnet --info
+
+# Step 4: Create a build image for .NET SDK
+FROM base AS build
+WORKDIR /src
+
+# Step 5: Copy the application code
+COPY . . 
+
+# Step 6: Restore dependencies
+RUN dotnet restore "/src/App/Member.Api/Member.Api.csproj"
+
+# Step 7: Build the application
+RUN dotnet build "/src/App/Member.Api/Member.Api.csproj" -c Release -o /src/build
+
+# Step 8: Publish the application
+FROM build AS publish
+RUN dotnet publish "/src/App/Member.Api/Member.Api.csproj" -c Release -o /src/publish /p:UseAppHost=false
+
+# Step 9: Production stage (final image)
+FROM base AS final
+
+# Install ICU libraries (to support globalization)
+RUN yum install -y icu-libs && yum clean all
+
+# Set the working directory for the final image
+WORKDIR /inetpub/wwwroot
+
+# Step 10: Copy the published app from the publish stage
+COPY --from=publish /src/publish .
+
+# Final stage check - ensure the application is copied correctly
+RUN echo "Listing files in /inetpub/wwwroot during final stage" && ls -al /inetpub/wwwroot/
+
+# Step 11: Set the entry point to run the application
+ENTRYPOINT ["dotnet", "Member.Api.dll"]

@@ -1,0 +1,221 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Projects\\LearningProjects\\DockerApiContainerizer\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{47FA375B-F0EE-4845-8E0C-6A45DE71CE27}|App\\DockerLearning.Api\\DockerLearning.Api.csproj|d:\\projects\\learningprojects\\dockerapicontainerizer\\app\\dockerlearning.api\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{47FA375B-F0EE-4845-8E0C-6A45DE71CE27}|App\\DockerLearning.Api\\DockerLearning.Api.csproj|solutionrelative:app\\dockerlearning.api\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{47FA375B-F0EE-4845-8E0C-6A45DE71CE27}|App\\DockerLearning.Api\\DockerLearning.Api.csproj|d:\\projects\\learningprojects\\dockerapicontainerizer\\app\\dockerlearning.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{47FA375B-F0EE-4845-8E0C-6A45DE71CE27}|App\\DockerLearning.Api\\DockerLearning.Api.csproj|solutionrelative:app\\dockerlearning.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B8275C2D-78AD-4DE9-B004-48CA7B948738}|Common\\DockerLearning.Common\\DockerLearning.Common.csproj|d:\\projects\\learningprojects\\dockerapicontainerizer\\common\\dockerlearning.common\\utilities\\appsettingshelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B8275C2D-78AD-4DE9-B004-48CA7B948738}|Common\\DockerLearning.Common\\DockerLearning.Common.csproj|solutionrelative:common\\dockerlearning.common\\utilities\\appsettingshelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{47FA375B-F0EE-4845-8E0C-6A45DE71CE27}|App\\DockerLearning.Api\\DockerLearning.Api.csproj|d:\\projects\\learningprojects\\dockerapicontainerizer\\app\\dockerlearning.api\\appsettings.prod.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{47FA375B-F0EE-4845-8E0C-6A45DE71CE27}|App\\DockerLearning.Api\\DockerLearning.Api.csproj|solutionrelative:app\\dockerlearning.api\\appsettings.prod.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{47FA375B-F0EE-4845-8E0C-6A45DE71CE27}|App\\DockerLearning.Api\\DockerLearning.Api.csproj|d:\\projects\\learningprojects\\dockerapicontainerizer\\app\\dockerlearning.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{47FA375B-F0EE-4845-8E0C-6A45DE71CE27}|App\\DockerLearning.Api\\DockerLearning.Api.csproj|solutionrelative:app\\dockerlearning.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{47FA375B-F0EE-4845-8E0C-6A45DE71CE27}|App\\DockerLearning.Api\\DockerLearning.Api.csproj|d:\\projects\\learningprojects\\dockerapicontainerizer\\app\\dockerlearning.api\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{47FA375B-F0EE-4845-8E0C-6A45DE71CE27}|App\\DockerLearning.Api\\DockerLearning.Api.csproj|solutionrelative:app\\dockerlearning.api\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{47FA375B-F0EE-4845-8E0C-6A45DE71CE27}|App\\DockerLearning.Api\\DockerLearning.Api.csproj|d:\\projects\\learningprojects\\dockerapicontainerizer\\app\\dockerlearning.api\\appsettings.stage.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{47FA375B-F0EE-4845-8E0C-6A45DE71CE27}|App\\DockerLearning.Api\\DockerLearning.Api.csproj|solutionrelative:app\\dockerlearning.api\\appsettings.stage.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{47FA375B-F0EE-4845-8E0C-6A45DE71CE27}|App\\DockerLearning.Api\\DockerLearning.Api.csproj|d:\\projects\\learningprojects\\dockerapicontainerizer\\app\\dockerlearning.api\\appsettings.qa.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{47FA375B-F0EE-4845-8E0C-6A45DE71CE27}|App\\DockerLearning.Api\\DockerLearning.Api.csproj|solutionrelative:app\\dockerlearning.api\\appsettings.qa.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{47FA375B-F0EE-4845-8E0C-6A45DE71CE27}|App\\DockerLearning.Api\\DockerLearning.Api.csproj|d:\\projects\\learningprojects\\dockerapicontainerizer\\app\\dockerlearning.api\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{47FA375B-F0EE-4845-8E0C-6A45DE71CE27}|App\\DockerLearning.Api\\DockerLearning.Api.csproj|solutionrelative:app\\dockerlearning.api\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{47FA375B-F0EE-4845-8E0C-6A45DE71CE27}|App\\DockerLearning.Api\\DockerLearning.Api.csproj|d:\\projects\\learningprojects\\dockerapicontainerizer\\app\\dockerlearning.api\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{47FA375B-F0EE-4845-8E0C-6A45DE71CE27}|App\\DockerLearning.Api\\DockerLearning.Api.csproj|solutionrelative:app\\dockerlearning.api\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{47FA375B-F0EE-4845-8E0C-6A45DE71CE27}|App\\DockerLearning.Api\\DockerLearning.Api.csproj|d:\\projects\\learningprojects\\dockerapicontainerizer\\app\\dockerlearning.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{47FA375B-F0EE-4845-8E0C-6A45DE71CE27}|App\\DockerLearning.Api\\DockerLearning.Api.csproj|solutionrelative:app\\dockerlearning.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Projects\\LearningProjects\\DockerApiContainerizer\\App\\DockerLearning.Api\\Program.cs",
+              "RelativeDocumentMoniker": "App\\DockerLearning.Api\\Program.cs",
+              "ToolTip": "D:\\Projects\\LearningProjects\\DockerApiContainerizer\\App\\DockerLearning.Api\\Program.cs",
+              "RelativeToolTip": "App\\DockerLearning.Api\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-22T10:44:14.758Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "D:\\Projects\\LearningProjects\\DockerApiContainerizer\\App\\DockerLearning.Api\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "App\\DockerLearning.Api\\Properties\\launchSettings.json",
+              "ToolTip": "D:\\Projects\\LearningProjects\\DockerApiContainerizer\\App\\DockerLearning.Api\\Properties\\launchSettings.json",
+              "RelativeToolTip": "App\\DockerLearning.Api\\Properties\\launchSettings.json",
+              "ViewState": "AgIAABQAAAAAAAAAAAAgwC4AAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-01-21T13:42:34.414Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "WeatherForecastController.cs",
+              "DocumentMoniker": "D:\\Projects\\LearningProjects\\DockerApiContainerizer\\App\\DockerLearning.Api\\Controllers\\WeatherForecastController.cs",
+              "RelativeDocumentMoniker": "App\\DockerLearning.Api\\Controllers\\WeatherForecastController.cs",
+              "ToolTip": "D:\\Projects\\LearningProjects\\DockerApiContainerizer\\App\\DockerLearning.Api\\Controllers\\WeatherForecastController.cs",
+              "RelativeToolTip": "App\\DockerLearning.Api\\Controllers\\WeatherForecastController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-21T15:33:13.084Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Dockerfile",
+              "DocumentMoniker": "D:\\Projects\\LearningProjects\\DockerApiContainerizer\\App\\DockerLearning.Api\\Dockerfile",
+              "RelativeDocumentMoniker": "App\\DockerLearning.Api\\Dockerfile",
+              "ToolTip": "D:\\Projects\\LearningProjects\\DockerApiContainerizer\\App\\DockerLearning.Api\\Dockerfile",
+              "RelativeToolTip": "App\\DockerLearning.Api\\Dockerfile",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-01-21T13:48:41.915Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "WeatherForecast.cs",
+              "DocumentMoniker": "D:\\Projects\\LearningProjects\\DockerApiContainerizer\\App\\DockerLearning.Api\\WeatherForecast.cs",
+              "RelativeDocumentMoniker": "App\\DockerLearning.Api\\WeatherForecast.cs",
+              "ToolTip": "D:\\Projects\\LearningProjects\\DockerApiContainerizer\\App\\DockerLearning.Api\\WeatherForecast.cs",
+              "RelativeToolTip": "App\\DockerLearning.Api\\WeatherForecast.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-22T12:29:55.478Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AppSettingsHelper.cs",
+              "DocumentMoniker": "D:\\Projects\\LearningProjects\\DockerApiContainerizer\\Common\\DockerLearning.Common\\Utilities\\AppSettingsHelper.cs",
+              "RelativeDocumentMoniker": "Common\\DockerLearning.Common\\Utilities\\AppSettingsHelper.cs",
+              "ToolTip": "D:\\Projects\\LearningProjects\\DockerApiContainerizer\\Common\\DockerLearning.Common\\Utilities\\AppSettingsHelper.cs",
+              "RelativeToolTip": "Common\\DockerLearning.Common\\Utilities\\AppSettingsHelper.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAmwBkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-22T12:19:39.053Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "appsettings.qa.json",
+              "DocumentMoniker": "D:\\Projects\\LearningProjects\\DockerApiContainerizer\\App\\DockerLearning.Api\\appsettings.qa.json",
+              "RelativeDocumentMoniker": "App\\DockerLearning.Api\\appsettings.qa.json",
+              "ToolTip": "D:\\Projects\\LearningProjects\\DockerApiContainerizer\\App\\DockerLearning.Api\\appsettings.qa.json",
+              "RelativeToolTip": "App\\DockerLearning.Api\\appsettings.qa.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-01-22T11:26:00.976Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "appsettings.stage.json",
+              "DocumentMoniker": "D:\\Projects\\LearningProjects\\DockerApiContainerizer\\App\\DockerLearning.Api\\appsettings.stage.json",
+              "RelativeDocumentMoniker": "App\\DockerLearning.Api\\appsettings.stage.json",
+              "ToolTip": "D:\\Projects\\LearningProjects\\DockerApiContainerizer\\App\\DockerLearning.Api\\appsettings.stage.json",
+              "RelativeToolTip": "App\\DockerLearning.Api\\appsettings.stage.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-01-22T11:25:37.661Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "appsettings.prod.json",
+              "DocumentMoniker": "D:\\Projects\\LearningProjects\\DockerApiContainerizer\\App\\DockerLearning.Api\\appsettings.prod.json",
+              "RelativeDocumentMoniker": "App\\DockerLearning.Api\\appsettings.prod.json",
+              "ToolTip": "D:\\Projects\\LearningProjects\\DockerApiContainerizer\\App\\DockerLearning.Api\\appsettings.prod.json",
+              "RelativeToolTip": "App\\DockerLearning.Api\\appsettings.prod.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-01-22T11:25:19.743Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "D:\\Projects\\LearningProjects\\DockerApiContainerizer\\App\\DockerLearning.Api\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "App\\DockerLearning.Api\\appsettings.Development.json",
+              "ToolTip": "D:\\Projects\\LearningProjects\\DockerApiContainerizer\\App\\DockerLearning.Api\\appsettings.Development.json",
+              "RelativeToolTip": "App\\DockerLearning.Api\\appsettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-01-22T10:29:04.539Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\Projects\\LearningProjects\\DockerApiContainerizer\\App\\DockerLearning.Api\\appsettings.json",
+              "RelativeDocumentMoniker": "App\\DockerLearning.Api\\appsettings.json",
+              "ToolTip": "D:\\Projects\\LearningProjects\\DockerApiContainerizer\\App\\DockerLearning.Api\\appsettings.json",
+              "RelativeToolTip": "App\\DockerLearning.Api\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-01-22T10:29:02.048Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
