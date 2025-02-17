@@ -63,7 +63,6 @@
             File.WriteAllText(filePath, jsonObj.ToString());
         }
 
-        // Method to update the JSON file based on the filtered environment variables
         public static void UpdateJsonFileWithFilteredEnvVars(string filePath, Dictionary<string, string> filteredEnvVars)
         {
             if (!File.Exists(filePath))
@@ -84,21 +83,58 @@
                 string envVarKey = envVar.Key;
                 string envVarValue = envVar.Value;
 
-                // Try to match the key exactly in the JSON and update the value if found
-                var token = jsonObj.SelectToken(envVarKey);
+                // Handle key transformation (e.g., remove the APPSETTING_, CONNSTR_, or NLOGTARGET_ prefix)
+                string jsonKey = TransformKeyForJson(envVarKey);
+
+                // Try to match the key in the JSON and update the value if found
+                var token = GetJsonToken(jsonObj, jsonKey);
                 if (token != null)
                 {
                     token.Replace(envVarValue); // Replace the value for the matched key
-                    Console.WriteLine($"Updated key: {envVarKey} with value from environment variable: {envVarValue}");
+                    Console.WriteLine($"Updated key: {jsonKey} with value from environment variable: {envVarValue}");
                 }
                 else
                 {
-                    Console.WriteLine($"Key {envVarKey} not found in the JSON file.");
+                    Console.WriteLine($"Key '{jsonKey}' not found in the JSON file.");
                 }
             }
 
             // Save the updated JSON back to the file
             File.WriteAllText(filePath, jsonObj.ToString());
+        }
+
+        private static string TransformKeyForJson(string envVarKey)
+        {
+            if (envVarKey.StartsWith(ConfigConstants.AppSettingPrefix, StringComparison.OrdinalIgnoreCase))
+            {
+                return envVarKey.Substring(ConfigConstants.AppSettingPrefix.Length);
+            }
+
+            if (envVarKey.StartsWith(ConfigConstants.ConnStrPrefix, StringComparison.OrdinalIgnoreCase))
+            {
+                return envVarKey.Substring(ConfigConstants.ConnStrPrefix.Length);
+            }
+
+            if (envVarKey.StartsWith(ConfigConstants.NLogTargetPrefix, StringComparison.OrdinalIgnoreCase))
+            {
+                return envVarKey.Substring(ConfigConstants.NLogTargetPrefix.Length);
+            }
+
+            return envVarKey;
+        }
+
+        private static JToken GetJsonToken(JObject jsonObj, string jsonKey)
+        {
+            // Try to find the token by the exact key name (case-sensitive)
+            var token = jsonObj.SelectToken(jsonKey);
+
+            // If not found, try case-insensitive lookup for better flexibility
+            if (token == null)
+            {
+                token = jsonObj.Descendants().FirstOrDefault(t => string.Equals(t.Path, jsonKey, StringComparison.OrdinalIgnoreCase));
+            }
+
+            return token;
         }
     }
 }

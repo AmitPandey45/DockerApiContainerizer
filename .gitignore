@@ -350,3 +350,8 @@ MigrationBackup/
 /.vs/Learning/v17/DocumentLayout.json
 /.vs/DockerLearning.Api/FileContentIndex/*.vsidx
 /.vs
+/.vs/DockerLearning.Api/DesignTimeBuild/.dtbcache.v2
+/.vs/DockerLearning.Api/v17/.futdcache.v2
+/.vs/DockerLearning.Api/v17/.suo
+/.vs/DockerLearning.Api/v17/DocumentLayout.backup.json
+/.vs/DockerLearning.Api/v17/DocumentLayout.json

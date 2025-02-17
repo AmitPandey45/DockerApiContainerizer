@@ -4,6 +4,13 @@ using NLog;
 
 var builder = WebApplication.CreateBuilder(args);
 
+foreach (var variable in Environment.GetEnvironmentVariables())
+{
+    // Cast the variable to DictionaryEntry to access Key and Value
+    var envVar = (System.Collections.DictionaryEntry)variable;
+    Console.WriteLine($"{envVar.Key}: {envVar.Value}");
+}
+
 ////var allEnvVars = Environment.GetEnvironmentVariables();
 ////foreach (var variable in Environment.GetEnvironmentVariables())
 ////{
@@ -30,21 +37,22 @@ var builder = WebApplication.CreateBuilder(args);
 var logger = LogManager.GetLogger("Default");
 AppConfigLoader.Logger = logger;
 JsonConfigManager.Logger = logger;
+
 AppConfigLoader.SetAppConfig(builder);
 
-AppSettingsHelper.SetConfiguration(builder.Configuration);
+//AppSettingsHelper.SetConfiguration(builder.Configuration);
 
-var environmentFile = $"appsettings.{builder.Environment.EnvironmentName}.json";
-Console.WriteLine($"Loading environment-specific file: {environmentFile}");
+//var environmentFile = $"appsettings.{builder.Environment.EnvironmentName}.json";
+//Console.WriteLine($"Loading environment-specific file: {environmentFile}");
 
-var environment1 = builder.Configuration["ASPNETCORE_ENVIRONMENT"];
-var environment2 = AppSettingsHelper.GetValue("ASPNETCORE_ENVIRONMENT");
-var customEnv1 = AppSettingsHelper.GetValue("MY_CUSTOM_ENV1");
-var customEnv2 = AppSettingsHelper.GetValue("MY_CUSTOM_ENV2");
-Console.WriteLine($"ASPNETCORE_ENVIRONMENT: {environment1}");
-Console.WriteLine($"ASPNETCORE_ENVIRONMENT: {environment2}");
-Console.WriteLine($"MY_CUSTOM_ENV1: {customEnv1}");
-Console.WriteLine($"MY_CUSTOM_ENV2: {customEnv2}");
+//var environment1 = builder.Configuration["ASPNETCORE_ENVIRONMENT"];
+//var environment2 = AppSettingsHelper.GetValue("ASPNETCORE_ENVIRONMENT");
+//var customEnv1 = AppSettingsHelper.GetValue("MY_CUSTOM_ENV1");
+//var customEnv2 = AppSettingsHelper.GetValue("MY_CUSTOM_ENV2");
+//Console.WriteLine($"ASPNETCORE_ENVIRONMENT: {environment1}");
+//Console.WriteLine($"ASPNETCORE_ENVIRONMENT: {environment2}");
+//Console.WriteLine($"MY_CUSTOM_ENV1: {customEnv1}");
+//Console.WriteLine($"MY_CUSTOM_ENV2: {customEnv2}");
 
 // Add services to the container.
 

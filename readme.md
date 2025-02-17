@@ -61,14 +61,16 @@ If you're running your application in a Docker container, you can pass environme
 
 docker run -e ASPNETCORE_ENVIRONMENT=Production -e MY_CUSTOM_ENV_VARIABLE=MyValue myapp:latest
 
+docker build --no-cache --progress plain --build-arg ENVIRONMENT_NAME=TEST -t dockerlearning:1.0.0 -f ./App/DockerLearning.Api/Dockerfile .
 
-docker run --name DockerLearningApi1 -d -p 8081:8080 -e ASPNETCORE_ENVIRONMENT=dev -e MY_CUSTOM_ENV1=KeyEnv1ValueDev -e MY_CUSTOM_ENV2=KeyEnv2ValueDev dockerlearning:1.0.0
 
-docker run --name DockerLearningApi2 -d -p 8082:8080 -e ASPNETCORE_ENVIRONMENT=qa -e MY_CUSTOM_ENV1=KeyEnv1ValueQA -e MY_CUSTOM_ENV2=KeyEnv2ValueQA dockerlearning:1.0.0
+docker run --name DockerLearningApi1 -d -p 8081:8080 -e ENVIRONMENT_NAME=DEV -e ASPNETCORE_ENVIRONMENT=dev -e MY_CUSTOM_ENV1=KeyEnv1ValueDev -e MY_CUSTOM_ENV2=KeyEnv2ValueDev dockerlearning:1.0.0
 
-docker run --name DockerLearningApi3 -d -p 8083:8080 -e ASPNETCORE_ENVIRONMENT=stage -e MY_CUSTOM_ENV1=KeyEnv1ValueStage -e MY_CUSTOM_ENV2=KeyEnv2ValueStage dockerlearning:1.0.0
+docker run --name DockerLearningApi2 -d -p 8082:8080 -e ENVIRONMENT_NAME=TEST -e ASPNETCORE_ENVIRONMENT=qa -e MY_CUSTOM_ENV1=KeyEnv1ValueQA -e MY_CUSTOM_ENV2=KeyEnv2ValueQA dockerlearning:1.0.0
 
-docker run --name DockerLearningApi4 -d -p 8084:8080 -e ASPNETCORE_ENVIRONMENT=prod -e MY_CUSTOM_ENV1=KeyEnv1ValueProd -e MY_CUSTOM_ENV2=KeyEnv2ValueProd dockerlearning:1.0.0
+docker run --name DockerLearningApi3 -d -p 8083:8080 -e ENVIRONMENT_NAME=STAGE -e ASPNETCORE_ENVIRONMENT=stage -e MY_CUSTOM_ENV1=KeyEnv1ValueStage -e MY_CUSTOM_ENV2=KeyEnv2ValueStage dockerlearning:1.0.0
+
+docker run --name DockerLearningApi4 -d -p 8084:8080 -e ENVIRONMENT_NAME=PROD -e ASPNETCORE_ENVIRONMENT=prod -e MY_CUSTOM_ENV1=KeyEnv1ValueProd -e MY_CUSTOM_ENV2=KeyEnv2ValueProd dockerlearning:1.0.0
 
 
 
@@ -110,3 +112,12 @@ docker system prune -a -f
 docker builder prune -f
 
 docker system df
+
+
+=================================================== ENV VALEUS ===========================================
+
+setx APPSETTING_AWSACCESSKEY "APPSETTING_AWSACCESSKEY_VALUE1"
+setx APPSETTING_AWSSECRETACCESSKEY "APPSETTING_AWSSECRETACCESSKEY_VALUE1"
+setx CONNSTR_DefaultDBConnStr "CONNSTR_DefaultDBConnStr_VALUE1"
+setx ENVIRONMENT_NAME "DEV"
+setx NLOGTARGET_TargetLocation "NLOGTARGET_TargetLocation_VALUE1"

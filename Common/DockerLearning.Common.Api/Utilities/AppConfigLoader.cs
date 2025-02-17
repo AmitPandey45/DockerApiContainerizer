@@ -10,25 +10,28 @@ namespace DockerLearning.Common.Api.Utilities
         public static IConfiguration SetAppConfig(WebApplicationBuilder builder)
         {
             Console.WriteLine("Started SetAppConfig");
-            var environmentName = builder.Environment.EnvironmentName;
+            var environmentName = builder.Environment.EnvironmentName.ToLower();
             string environmentFile = $"appsettings.{environmentName}.json";
             environmentFile = environmentName.ToLower().Equals("dev") ? "appsettings.json" : environmentFile;
             Console.WriteLine($"GetCurrentDirectory: {Directory.GetCurrentDirectory()}");
 
-            SetNLogConfig(environmentName, builder);
-            Console.WriteLine($"SetNLogConfig Done");
-
-            ////var allEnvVars = builder.Configuration.AsEnumerable();
-            ////var filteredEnvVars = allEnvVars
-            ////    .Where(envVar => envVar.Key.StartsWith("MY_CUSTOM_ENV"))
-            ////    .ToDictionary(envVar => envVar.Key, envVar => envVar.Value);
+            var allEnvVars1 = builder.Configuration.AsEnumerable();
+            var filteredEnvVars1 = allEnvVars1
+                .Where(envVar => envVar.Key.StartsWith(ConfigConstants.MyCustomEnv) ||
+                envVar.Key.StartsWith(ConfigConstants.AppSettingPrefix) ||
+                envVar.Key.StartsWith(ConfigConstants.ConnStrPrefix) ||
+                envVar.Key.StartsWith(ConfigConstants.NLogTargetPrefix))
+                .ToDictionary(envVar => envVar.Key, envVar => envVar.Value);
 
             // Get all environment variables
             var allEnvVars = Environment.GetEnvironmentVariables();
 
             // Filter environment variables that start with "MY_CUSTOM_ENV"
             var filteredEnvVars = allEnvVars.Cast<DictionaryEntry>()
-                .Where(envVar => envVar.Key.ToString().StartsWith("MY_CUSTOM_ENV"))
+                .Where(envVar => envVar.Key.ToString().StartsWith(ConfigConstants.MyCustomEnv) ||
+                envVar.Key.ToString().StartsWith(ConfigConstants.AppSettingPrefix) ||
+                envVar.Key.ToString().StartsWith(ConfigConstants.ConnStrPrefix) ||
+                envVar.Key.ToString().StartsWith(ConfigConstants.NLogTargetPrefix))
                 .ToDictionary(envVar => envVar.Key.ToString(), envVar => envVar.Value.ToString());
 
             JsonConfigManager.UpdateJsonFileWithFilteredEnvVars(environmentFile, filteredEnvVars);
@@ -36,8 +39,10 @@ namespace DockerLearning.Common.Api.Utilities
             builder.Configuration
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile(environmentFile, optional: true, reloadOnChange: false);
-
             Console.WriteLine($"AppSettings set: {environmentFile} Done");
+
+            SetNLogConfig(environmentName, builder);
+            Console.WriteLine($"SetNLogConfig Done");
 
             return builder.Configuration;
         }
