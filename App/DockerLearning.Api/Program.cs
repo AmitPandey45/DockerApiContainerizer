@@ -76,4 +76,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+LogUtility.ConfigureNLog();
+
 app.Run();

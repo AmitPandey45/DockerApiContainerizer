@@ -41,7 +41,7 @@ namespace DockerLearning.Common.Api.Utilities
                 .AddJsonFile(environmentFile, optional: true, reloadOnChange: false);
             Console.WriteLine($"AppSettings set: {environmentFile} Done");
 
-            SetNLogConfig(environmentName, builder);
+            //SetNLogConfig(environmentName, builder);
             Console.WriteLine($"SetNLogConfig Done");
 
             return builder.Configuration;
