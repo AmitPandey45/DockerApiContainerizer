@@ -125,13 +125,16 @@
 
         private static JToken GetJsonToken(JObject jsonObj, string jsonKey)
         {
-            // Try to find the token by the exact key name (case-sensitive)
-            var token = jsonObj.SelectToken(jsonKey);
+            if (string.IsNullOrEmpty(jsonKey))
+            {
+                throw new ArgumentNullException(nameof(jsonKey), "The key cannot be null or empty.");
+            }
 
-            // If not found, try case-insensitive lookup for better flexibility
+            var token = jsonObj[jsonKey];
             if (token == null)
             {
-                token = jsonObj.Descendants().FirstOrDefault(t => string.Equals(t.Path, jsonKey, StringComparison.OrdinalIgnoreCase));
+                token = jsonObj.Properties()
+                    .FirstOrDefault(t => string.Equals(t.Name, jsonKey, StringComparison.OrdinalIgnoreCase))?.Value;
             }
 
             return token;

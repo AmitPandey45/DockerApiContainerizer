@@ -59,6 +59,8 @@ namespace DockerLearning.Api.Controllers
                 AppKey2 = appKey2,
                 CustomAppKey1 = customKey1,
                 CustomAppKey2 = customKey2,
+                AwsKey = config["AwsAccessKey"],
+                AwsSecret = config["AwsSecretAccessKey"],
             })
             .ToArray();
         }

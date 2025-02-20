@@ -1,6 +1,7 @@
 using DockerLearning.Common.Api.Utilities;
-using DockerLearning.Common.Utilities;
+using Microsoft.Extensions.Logging;
 using NLog;
+using NLog.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,7 +37,7 @@ foreach (var variable in Environment.GetEnvironmentVariables())
 
 var logger = LogManager.GetLogger("Default");
 AppConfigLoader.Logger = logger;
-JsonConfigManager.Logger = logger;
+//JsonConfigManager.Logger = logger;
 
 AppConfigLoader.SetAppConfig(builder);
 
@@ -60,6 +61,23 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Now set up NLog
+builder.Host.ConfigureLogging(logging =>
+{
+    // This clears any existing logging configurations (including Microsoft's)
+    logging.ClearProviders();
+
+    // Here, we directly use NLog's LogLevel to configure the minimum level for NLog
+    // Set NLog's minimum level (e.g., Trace, Debug, Info)
+    //logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Warning); // This still uses Microsoft's LogLevel for ASP.NET Core's internal use.
+
+    logging.AddFilter("Microsoft", Microsoft.Extensions.Logging.LogLevel.None); // Or .Critical to allow only critical MS logs if needed
+    logging.AddFilter("System", Microsoft.Extensions.Logging.LogLevel.None); // Or .Critical to allow only critical System logs if needed
+    logging.AddFilter("Microsoft.AspNetCore", Microsoft.Extensions.Logging.LogLevel.None); // Or .Critical to allow only critical MS AspNetCore logs if needed
+
+}).UseNLog(); // This adds NLog as the logging provider.
+
 
 var app = builder.Build();
 

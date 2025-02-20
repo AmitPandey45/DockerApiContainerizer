@@ -17,10 +17,10 @@
             {
                 try
                 {
-                    LogManager.Setup().LoadConfigurationFromFile("NLog1.config");
-                    throw new Exception("Exception occurred");
+                    LogManager.Setup().LoadConfigurationFromFile("NLog.config");
                     _isConfigured = true;
-                    return; // Config loaded from file
+                    //throw new Exception("Exception occurred");
+                    return;
                 }
                 catch (Exception ex)
                 {
@@ -54,16 +54,7 @@
                     config.AddTarget("console", consoleTarget);
 
                     config.LoggingRules.Add(new LoggingRule("*", LogLevel.Trace, fileTarget));
-                    //config.LoggingRules.Add(new LoggingRule("*", LogLevel.Debug, fileTarget));
-                    //config.LoggingRules.Add(new LoggingRule("*", LogLevel.Info, fileTarget));
-                    //config.LoggingRules.Add(new LoggingRule("*", LogLevel.Error, fileTarget));
-                    //config.LoggingRules.Add(new LoggingRule("*", LogLevel.Fatal, fileTarget));
-
                     config.LoggingRules.Add(new LoggingRule("*", LogLevel.Trace, consoleTarget));
-                    //config.LoggingRules.Add(new LoggingRule("*", LogLevel.Debug, consoleTarget));
-                    //config.LoggingRules.Add(new LoggingRule("*", LogLevel.Info, consoleTarget));
-                    //config.LoggingRules.Add(new LoggingRule("*", LogLevel.Error, consoleTarget));
-                    //config.LoggingRules.Add(new LoggingRule("*", LogLevel.Fatal, consoleTarget));
 
                     LogManager.Configuration = config;
                     _isConfigured = true;
@@ -78,32 +69,39 @@
         public static void LogDebug(string message, object properties = null) => Log(LogLevel.Debug, message, properties);
         public static void LogFatal(string message, Exception ex = null, object properties = null) => Log(LogLevel.Fatal, message, properties, ex);
 
-
-
         private static void Log(LogLevel level, string message, object properties = null, Exception ex = null)
         {
-            ConfigureNLog(); // Ensure configuration
+            ConfigureNLog();
 
-            var logEventInfo = new LogEventInfo(level, "MyLogger", message); // Customize logger name
+            var logEventInfo = new LogEventInfo(level, "MyLogger", message);
 
-            //if (properties == null)
-            //{
-            //    // Handle dictionary or anonymous object properties
-            //    if (properties is IDictionary<string, object> dict)
-            //    {
-            //        foreach (var kvp in dict)
-            //        {
-            //            logEventInfo.Properties[kvp.Key] = kvp.Value;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        foreach (var property in properties.GetType().GetProperties())
-            //        {
-            //            logEventInfo.Properties[property.Name] = property.GetValue(properties);
-            //        }
-            //    }
-            //}
+            // Only add properties if they are not null or empty
+            if (properties != null)
+            {
+                if (properties is IDictionary<string, object> dict)
+                {
+                    foreach (var kvp in dict)
+                    {
+                        // Only add properties that are not null or empty
+                        if (kvp.Value != null)
+                        {
+                            logEventInfo.Properties[kvp.Key] = kvp.Value;
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (var property in properties.GetType().GetProperties())
+                    {
+                        var value = property.GetValue(properties);
+                        // Only add properties that are not null or empty
+                        if (value != null)
+                        {
+                            logEventInfo.Properties[property.Name] = value;
+                        }
+                    }
+                }
+            }
 
             if (ex != null)
             {
@@ -112,6 +110,38 @@
 
             _logger.Log(logEventInfo);
         }
+
+        //private static void Log(LogLevel level, string message, object properties = null, Exception ex = null)
+        //{
+        //    ConfigureNLog();
+
+        //    var logEventInfo = new LogEventInfo(level, "MyLogger", message);
+
+        //    if (properties != null)
+        //    {
+        //        if (properties is IDictionary<string, object> dict)
+        //        {
+        //            foreach (var kvp in dict)
+        //            {
+        //                logEventInfo.Properties[kvp.Key] = kvp.Value;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            foreach (var property in properties.GetType().GetProperties())
+        //            {
+        //                logEventInfo.Properties[property.Name] = property.GetValue(properties);
+        //            }
+        //        }
+        //    }
+
+        //    if (ex != null)
+        //    {
+        //        logEventInfo.Exception = ex;
+        //    }
+
+        //    _logger.Log(logEventInfo);
+        //}
 
         public static string ToJson(object obj)
         {

@@ -19,7 +19,9 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "stage",
         "MY_CUSTOM_ENV1": "STAGE",
-        "MY_CUSTOM_ENV2": "STAGEConfigData1"
+        "MY_CUSTOM_ENV2": "STAGEConfigData1",
+        "APPSETTING_AWSACCESSKEY": "AwsKeyValue",
+        "APPSETTING_AWSSECRETACCESSKEY": "AwsSecretKeyValue"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:7089;http://localhost:5205"
