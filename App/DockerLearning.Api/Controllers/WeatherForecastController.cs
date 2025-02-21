@@ -1,13 +1,6 @@
 using DockerLearning.Common.Api.Logger;
 using DockerLearning.Common.Api.Utilities;
-using DockerLearning.Common.Utilities;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using NLog;
-using NLog.Fluent;
-using System.Net;
-using System.Net.Mail;
 
 namespace DockerLearning.Api.Controllers
 {
@@ -42,11 +35,48 @@ namespace DockerLearning.Api.Controllers
                 Message = "Started this GetWeatherForecast",
             });
 
-            _logger.Trace("MyMethod started.");
-            _logger.Debug("Detailed debug info");
-            _logger.Warn("There is warning for one issue");
-            _logger.Info("This is an info message");
-            _logger.Fatal("This is Fatal message");
+            _logger.LogTrace(new LogOptions
+            {
+                LogInfo = "GetWeatherForecast",
+                Message = "MyMethod started.",
+                UniqueRequestId = Guid.NewGuid().ToString(),
+            });
+
+            _logger.LogDebug(new LogOptions
+            {
+                LogInfo = "GetWeatherForecast",
+                Message = "Detailed debug info",
+                UniqueRequestId = Guid.NewGuid().ToString(),
+            });
+
+            _logger.LogWarn(new LogOptions
+            {
+                LogInfo = "GetWeatherForecast",
+                Message = "There is warning for one issue",
+                UniqueRequestId = Guid.NewGuid().ToString(),
+            });
+
+            _logger.LogInfo(new LogOptions
+            {
+                LogInfo = "GetWeatherForecast",
+                Message = "This is an info message",
+                UniqueRequestId = Guid.NewGuid().ToString(),
+            });
+
+            _logger.LogError(new LogOptions
+            {
+                LogInfo = "GetWeatherForecast",
+                Message = "An error occurred, Error occurred for reading data",
+                UniqueRequestId = Guid.NewGuid().ToString(),
+            });
+
+            _logger.LogFatal(new LogOptions
+            {
+                LogInfo = "GetWeatherForecast",
+                Message = "This is Fatal message",
+                UniqueRequestId = Guid.NewGuid().ToString(),
+            });
+
             _logger.Error("An error occurred", new Exception("Error occurred for reading data"), new { ErrorCode = 500 });
 
             LogUtility.LogInfo("MyMethod started.");

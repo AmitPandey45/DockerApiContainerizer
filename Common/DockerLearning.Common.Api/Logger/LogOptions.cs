@@ -13,5 +13,11 @@
         public int? HttpStatusCode { get; set; }
 
         public string? UniqueRequestId { get; set; }
+
+        public LogOptions WithLogLevel(NLog.LogLevel logLevel)
+        {
+            LogLevel = logLevel;
+            return this;
+        }
     }
 }

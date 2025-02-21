@@ -4,7 +4,6 @@
     using Newtonsoft.Json;
     using NLog;
     using System.Net;
-    using System.Net.Mail;
     using System.Threading;
 
     public static class LogHelper
@@ -31,8 +30,6 @@
                     LogInfo = "ConfigureNLog",
                     LogLevel = LogLevel.Error,
                     Message = LogHelper.GetExceptionDetails(ex),
-                    Context = null,
-                    HttpStatusCode = 500
                 });
             }
         }
