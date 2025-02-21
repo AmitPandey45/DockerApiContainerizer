@@ -1,7 +1,13 @@
+using DockerLearning.Common.Api.Logger;
 using DockerLearning.Common.Api.Utilities;
 using DockerLearning.Common.Utilities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using NLog;
+using NLog.Fluent;
 using System.Net;
+using System.Net.Mail;
 
 namespace DockerLearning.Api.Controllers
 {
@@ -14,32 +20,34 @@ namespace DockerLearning.Api.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly NLog.ILogger _logger;
         private readonly IConfiguration config;
 
-        public WeatherForecastController(IConfiguration config)
+        public WeatherForecastController(IHttpContextAccessor httpContextAccessor, IConfiguration config, NLog.ILogger logger)
         {
-            _logger = NLog.LogManager.GetCurrentClassLogger();
+            _httpContextAccessor = httpContextAccessor;
+            _logger = logger;
             this.config = config;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
-            NLog.ILogger logger = NLog.LogManager.GetCurrentClassLogger();
-            var logDetails = new
+            LogHelper.Log(new LogOptions
             {
-                Timestamp = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ"),
-                LogLevel = "TRACE",
-                Message = "GetAlert => Testing for logging",
-                UserId = "UnknownUser",
-                ApiPath = "v1/api/Alert/",
-                HttpMethod = "GET",
-                HostName = Dns.GetHostName(),
-                HttpStatusCode = 200,
+                LogLevel = NLog.LogLevel.Trace,
+                LogInfo = "GetWeatherForecast",
                 UniqueRequestId = Guid.NewGuid().ToString(),
-            };
-            logger.Trace(logDetails);
+                Message = "Started this GetWeatherForecast",
+            });
+
+            _logger.Trace("MyMethod started.");
+            _logger.Debug("Detailed debug info");
+            _logger.Warn("There is warning for one issue");
+            _logger.Info("This is an info message");
+            _logger.Fatal("This is Fatal message");
+            _logger.Error("An error occurred", new Exception("Error occurred for reading data"), new { ErrorCode = 500 });
 
             LogUtility.LogInfo("MyMethod started.");
             LogUtility.LogDebug("Detailed debug info", new { Step = 1, Value = 10 });

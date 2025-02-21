@@ -1,3 +1,4 @@
+using DockerLearning.Common.Api.Logger;
 using DockerLearning.Common.Api.Utilities;
 using Microsoft.Extensions.Logging;
 using NLog;
@@ -35,9 +36,9 @@ foreach (var variable in Environment.GetEnvironmentVariables())
 ////    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)  // For environment-specific overrides
 ////    .AddEnvironmentVariables(); // Load environment variables (if needed)
 
-var logger = LogManager.GetLogger("Default");
-AppConfigLoader.Logger = logger;
-//JsonConfigManager.Logger = logger;
+var loggerObj = LogManager.GetLogger("Default");
+AppConfigLoader.Logger = loggerObj;
+//JsonConfigManager.Logger = loggerObj;
 
 AppConfigLoader.SetAppConfig(builder);
 
@@ -61,6 +62,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHttpContextAccessor();
 
 // Now set up NLog
 builder.Host.ConfigureLogging(logging =>
@@ -72,11 +74,13 @@ builder.Host.ConfigureLogging(logging =>
     // Set NLog's minimum level (e.g., Trace, Debug, Info)
     //logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Warning); // This still uses Microsoft's LogLevel for ASP.NET Core's internal use.
 
-    logging.AddFilter("Microsoft", Microsoft.Extensions.Logging.LogLevel.None); // Or .Critical to allow only critical MS logs if needed
-    logging.AddFilter("System", Microsoft.Extensions.Logging.LogLevel.None); // Or .Critical to allow only critical System logs if needed
-    logging.AddFilter("Microsoft.AspNetCore", Microsoft.Extensions.Logging.LogLevel.None); // Or .Critical to allow only critical MS AspNetCore logs if needed
+    //logging.AddFilter("Microsoft", Microsoft.Extensions.Logging.LogLevel.None); // Or .Critical to allow only critical MS logs if needed
+    //logging.AddFilter("System", Microsoft.Extensions.Logging.LogLevel.None); // Or .Critical to allow only critical System logs if needed
+    //logging.AddFilter("Microsoft.AspNetCore", Microsoft.Extensions.Logging.LogLevel.None); // Or .Critical to allow only critical MS AspNetCore logs if needed
 
 }).UseNLog(); // This adds NLog as the logging provider.
+
+builder.Services.AddSingleton(typeof(NLog.ILogger), sp => LogManager.GetCurrentClassLogger());
 
 
 var app = builder.Build();
@@ -94,6 +98,13 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-LogUtility.ConfigureNLog();
+using (var scope = app.Services.CreateScope())
+{
+    var httpContextAccessor = scope.ServiceProvider.GetRequiredService<IHttpContextAccessor>();
+    var logger = LogManager.GetCurrentClassLogger();
+    LogHelper.Initialize(httpContextAccessor, logger);
+}
+
+// LogUtility.ConfigureNLog();
 
 app.Run();

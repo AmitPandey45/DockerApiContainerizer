@@ -62,7 +62,6 @@
             }
         }
 
-
         public static void LogInfo(string message, object properties = null) => Log(LogLevel.Info, message, properties);
         public static void LogWarn(string message, object properties = null) => Log(LogLevel.Warn, message, properties);
         public static void LogError(string message, Exception ex = null, object properties = null) => Log(LogLevel.Error, message, properties, ex);
